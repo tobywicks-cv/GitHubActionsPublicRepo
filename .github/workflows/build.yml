@@ -12,7 +12,7 @@ jobs:
 
   greeting_job:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: ${{ inputs.prod_or_dev }}
     steps:
       - run: echo "$TEST"
         env:
