@@ -11,10 +11,11 @@ on:
 jobs:
 
   greeting_job:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     environment: ${{ inputs.prod_or_dev }}
     steps:
       - run: |
-          echo ::add-mask::pwd123
-          echo password is pwd123
+          $password = "pwd123"
+          Write-Host "::add-mask::$password"
+          Write-Host "password is $password"
           
