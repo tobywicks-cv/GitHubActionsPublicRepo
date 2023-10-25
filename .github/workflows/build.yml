@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.prod_or_dev }}
     steps:
-      - run: echo "$TEST"
-        env:
-          TEST: ${{ vars.TEST }}
+      - run: |
+          echo ::add-mask::pwd123
+          echo password is pwd123
+          
