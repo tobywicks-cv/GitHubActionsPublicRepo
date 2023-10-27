@@ -19,3 +19,9 @@ jobs:
           Write-Host "::add-mask::$password"
           Write-Host "password is $password"
           
+  deployment:
+    runs-on: windows-latest
+    environment: dev
+    steps:
+      - name: deploy
+        run: echo doing the deployment stuff on dev
