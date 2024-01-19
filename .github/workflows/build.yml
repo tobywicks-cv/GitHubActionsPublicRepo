@@ -1,8 +1,9 @@
 name: Build
 
-on: workflow_dispatch
-  #schedule:
-    #- cron: 1 
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: 0/1 * * * *
     
 jobs:
   build-required:
@@ -16,7 +17,9 @@ jobs:
             schedule: ${{ github.event.schedule }}
           run: |
             Write-Host "Running build with schedule: $($env:schedule)"
-            "required=true" >> $env:GITHUB_OUTPUT
+            $hasCommitsSinceLastTag = $false
+            $required = if ($env:schedule -ne '') { $commitsSinceLastTag } else { $true }
+            "required=$required" >> $env:GITHUB_OUTPUT
 
   build:
     needs: build-required
