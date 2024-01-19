@@ -5,8 +5,22 @@ on: workflow_dispatch
     #- cron: 1 
     
 jobs:
+  build-required:
+    runs-on: windows-latest
+    outputs:
+      required: ${{ steps.build-check.outputs.required }}    
+    steps:
+        - name: Check whether state
+          id: build-check
+          env:
+            schedule: ${{ github.event.schedule }}
+          run: |
+            Write-Host "Running build with schedule: $($env:schedule)"
+            "required=true" >> $env:GITHUB_OUTPUT
+
   build:
+    needs: build-required
+    if: ${{ needs.build-required.outputs.required == 'true' }}
     runs-on: windows-latest
     steps:
-        - run: echo Running build 
-        
+        - run: Write-Host 'Running build'
