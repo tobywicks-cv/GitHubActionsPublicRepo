@@ -1,27 +1,12 @@
 name: Greeting on variable day
 
-on:
-  workflow_dispatch:
-    inputs:
-      prod_or_dev:
-        description: 'prod or dev'
-        required: false
-        default: 'dev'
-        
+on: workflow_dispatch
+  #schedule:
+    #- cron: 1 
+    
 jobs:
-
-  greeting_job:
+  build:
     runs-on: windows-latest
-    environment: ${{ inputs.prod_or_dev }}
     steps:
-      - run: |
-          $password = "pwd123"
-          Write-Host "::add-mask::$password"
-          Write-Host "password is $password"
-          
-  deployment:
-    runs-on: windows-latest
-    environment: dev
-    steps:
-      - name: deploy
-        run: echo doing the deployment stuff on dev
+        - run: echo Running build 
+        
