@@ -23,7 +23,7 @@ jobs:
         - name: CHECK Whether build should run
           id: build-check
           env:
-            schedule: ${{ github.event.schedule || (inputs.scheduled_simulate && '* * * * *' }}
+            schedule: ${{ github.event.schedule || (inputs.scheduled_simulate && '* * * * *') }}
           run: |
             Write-Host "Running build with schedule: $($env:schedule)"
             git describe --exact-match --tags HEAD
