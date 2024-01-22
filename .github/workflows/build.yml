@@ -11,7 +11,7 @@ jobs:
     outputs:
       required: ${{ steps.build-check.outputs.required }}    
     steps:
-        - name: CHECK Schedule is started or 
+        - name: CHECK Whether build should run
           id: build-check
           env:
             schedule: ${{ github.event.schedule }}
