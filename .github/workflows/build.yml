@@ -31,6 +31,7 @@ jobs:
             Write-Host "hasCommitsSinceLastTag = $hasCommitsSinceLastTag"
             $required = if ($env:schedule -ne '') { $commitsSinceLastTag } else { $true }
             "required=$required" >> $env:GITHUB_OUTPUT
+            exit 0 # Required because git describe can return failure error code
 
   build:
     needs: build-required
