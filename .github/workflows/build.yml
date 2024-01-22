@@ -17,8 +17,8 @@ jobs:
       required: ${{ steps.build-check.outputs.required }}    
     steps:
         - uses: actions/checkout@v4
-          #with:
-            #fetch-depth: 0 
+          with:
+            fetch-tags: true
     
         - name: CHECK Whether build should run
           id: build-check
