@@ -3,7 +3,7 @@ name: Build
 on: 
   workflow_dispatch:
   schedule:
-    - cron: 0/1 * * * *
+    - cron: 0/5 * * * *
     
 jobs:
   build-required:
@@ -11,7 +11,7 @@ jobs:
     outputs:
       required: ${{ steps.build-check.outputs.required }}    
     steps:
-        - name: Check whether state
+        - name: CHECK Schedule is started or 
           id: build-check
           env:
             schedule: ${{ github.event.schedule }}
