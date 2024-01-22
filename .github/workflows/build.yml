@@ -47,10 +47,10 @@ jobs:
           run: |
             $version = get-date -Format "yyyy.MM.dd.hhMMss"
             "value=$version" >> $env:GITHUB_OUTPUT
-            
-        - name: Commit tagger
-          uses: tvdias/github-tagger@v0.0.2
+
+        - uses: ncipollo/release-action@v1
           with:
-            repo-token: "${{ secrets.GITHUB_TOKEN }}"
             tag: ${{ steps.version.outputs.value }}
+            allowUpdates: true
+            generateReleaseNotes: true
             
