@@ -2,8 +2,13 @@ name: Build
 
 on: 
   workflow_dispatch:
-  schedule:
-    - cron: 0/5 * * * *
+    inputs:
+      scheduled_simulate:
+        type: boolean
+        description: 'Simulate scheduled run'
+        
+  #schedule:
+    #- cron: 0/5 * * * *
     
 jobs:
   build-required:
@@ -11,13 +16,19 @@ jobs:
     outputs:
       required: ${{ steps.build-check.outputs.required }}    
     steps:
+        - uses: actions/checkout@v4
+          #with:
+            #fetch-depth: 0 
+    
         - name: CHECK Whether build should run
           id: build-check
           env:
-            schedule: ${{ github.event.schedule }}
+            schedule: ${{ github.event.schedule || (inputs.scheduled_simulate && '* * * * *' }}
           run: |
             Write-Host "Running build with schedule: $($env:schedule)"
-            $hasCommitsSinceLastTag = $false
+            git describe --exact-match --tags HEAD
+            $hasCommitsSinceLastTag = $LASTEXITCODE -ne 0
+            Write-Host "hasCommitsSinceLastTag = $hasCommitsSinceLastTag"
             $required = if ($env:schedule -ne '') { $commitsSinceLastTag } else { $true }
             "required=$required" >> $env:GITHUB_OUTPUT
 
