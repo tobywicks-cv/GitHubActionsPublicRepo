@@ -40,3 +40,15 @@ jobs:
     runs-on: windows-latest
     steps:
         - run: Write-Host 'Running build'
+        - name: Setup version
+          id: version
+          run: |
+            $version = get-date -Format "yyyy.MM.dd.hhMMss"
+            "value=$version" >> $env:GITHUB_OUTPUT
+            
+        - name: Commit tagger
+          uses: tvdias/github-tagger@v0.0.2
+          with:
+            repo-token: "${{ secrets.GITHUB_TOKEN }}"
+            tag: ${{ steps.version.outputs.value }}
+            
