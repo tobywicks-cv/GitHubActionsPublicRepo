@@ -35,7 +35,7 @@ jobs:
 
   build:
     needs: build-required
-    if: ${{ needs.build-required.outputs.required == 'true' }}
+    if: ${{ needs.build-required.outputs.required == 'True' }}
     runs-on: windows-latest
     steps:
         - run: Write-Host 'Running build'
