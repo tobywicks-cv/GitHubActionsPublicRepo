@@ -37,6 +37,8 @@ jobs:
   build:
     needs: build-required
     if: ${{ needs.build-required.outputs.required == 'True' }}
+    permissions:
+      contents: write   # Required to upload tag the release
     runs-on: windows-latest
     steps:
         - run: Write-Host 'Running build'
