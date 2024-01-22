@@ -5,7 +5,7 @@ on:
     inputs:
       scheduled_simulate:
         type: boolean
-        description: 'Simulate scheduled run'
+        description: 'Simulate scheduled run x'
         
   #schedule:
     #- cron: 0/5 * * * *
