@@ -45,7 +45,7 @@ jobs:
         - name: Setup version
           id: version
           run: |
-            $version = get-date -Format "yyyy.MM.dd.hhMMss"
+            $version = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::Now, "E. Australia Standard Time").ToString("yyyy.MM.dd.hhmm")
             "value=$version" >> $env:GITHUB_OUTPUT
 
         - uses: ncipollo/release-action@v1
