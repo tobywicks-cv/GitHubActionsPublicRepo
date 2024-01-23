@@ -44,8 +44,10 @@ jobs:
         - run: Write-Host 'Running build'
         - name: Setup version
           id: version
+          env:
+            githubRunNumber: ${{ github.run_number }}
           run: |
-            $version = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::Now, "E. Australia Standard Time").ToString("yyyy.MM.dd.hhmm")
+            $version = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::Now, "E. Australia Standard Time").ToString("yyyy.MM.dd.") + $env:githubRunNumber
             "value=$version" >> $env:GITHUB_OUTPUT
 
         - uses: ncipollo/release-action@v1
