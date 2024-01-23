@@ -16,10 +16,12 @@ jobs:
     outputs:
       required: ${{ steps.build-check.outputs.required }}    
     steps:
+        - uses: mxschmitt/action-tmate@v3
+
         - uses: actions/checkout@v4
           with:
             fetch-tags: true
-    
+
         - name: CHECK Whether build should run
           id: build-check
           env:
