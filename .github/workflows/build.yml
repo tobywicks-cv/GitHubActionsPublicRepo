@@ -55,6 +55,4 @@ jobs:
         - uses: ncipollo/release-action@v1
           with:
             tag: ${{ steps.version.outputs.value }}
-            allowUpdates: true
-            generateReleaseNotes: true
-            
+            body: ''
