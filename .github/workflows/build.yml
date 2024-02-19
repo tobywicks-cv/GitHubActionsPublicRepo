@@ -33,6 +33,8 @@ jobs:
             $LASTEXITCODE = 0
             Write-Host "hasCommitsSinceLastTag = $hasCommitsSinceLastTag"
             $required = if ($env:schedule -ne '') { $hasCommitsSinceLastTag } else { $true }
+            $required = $true
+            
             Write-Host "required = $required"
             "required=$required" >> $env:GITHUB_OUTPUT
 
