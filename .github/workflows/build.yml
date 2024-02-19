@@ -11,36 +11,8 @@ on:
     #- cron: 0/5 * * * *
     
 jobs:
-  build-required:
-    runs-on: windows-latest
-    outputs:
-      required: ${{ steps.build-check.outputs.required }}    
-    steps:
-        #- uses: mxschmitt/action-tmate@v3
-
-        - uses: actions/checkout@v4
-          with:
-            fetch-tags: true
-
-        - name: CHECK Whether build should run
-          id: build-check
-          env:
-            schedule: ${{ github.event.schedule || (inputs.scheduled_simulate && '* * * * *') }}
-          run: |
-            Write-Host "Running build with schedule: $($env:schedule)"
-            git describe --exact-match --tags HEAD
-            $hasCommitsSinceLastTag = $LASTEXITCODE -ne 0
-            $LASTEXITCODE = 0
-            Write-Host "hasCommitsSinceLastTag = $hasCommitsSinceLastTag"
-            $required = if ($env:schedule -ne '') { $hasCommitsSinceLastTag } else { $true }
-            $required = $true
-            
-            Write-Host "required = $required"
-            "required=$required" >> $env:GITHUB_OUTPUT
 
   build:
-    needs: build-required
-    if: ${{ needs.build-required.outputs.required == 'True' }}
     permissions:
       contents: write   # Required to upload tag the release
     runs-on: windows-latest
@@ -57,4 +29,4 @@ jobs:
         - uses: ncipollo/release-action@v1
           with:
             tag: ${{ steps.version.outputs.value }}
-            body: '-'
+            body: '&nbsp;'
