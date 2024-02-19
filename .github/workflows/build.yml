@@ -16,7 +16,7 @@ jobs:
     outputs:
       required: ${{ steps.build-check.outputs.required }}    
     steps:
-        - uses: mxschmitt/action-tmate@v3
+        #- uses: mxschmitt/action-tmate@v3
 
         - uses: actions/checkout@v4
           with:
