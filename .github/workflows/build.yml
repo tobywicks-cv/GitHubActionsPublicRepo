@@ -1,38 +1,19 @@
 name: Test Building
   
 on:
-  schedule:
-    - cron: "5,10,15,20,25,30,35,40,45,50,55,0 * * * *"
-    
-  pull_request:
   workflow_dispatch:
-    inputs:
-      manual_deploy_env:
-        description: 'Deploy to'
-        type: choice
-        options:
-          - Dev
-          - Prod
-        default: 'Dev'
-
-  release:
-    types: [ "created", "edited" ]
-
-env: 
-  DEPLOY_TO_ENV: ${{ github.event.inputs.manual_deploy_env || 'qa' }}
 
 jobs:
    
   build:
     runs-on: windows-latest
-    permissions:
-      actions: read
-      
+    
     steps:
+      - name: Execute under powershell 
+        shell: powershell
+        run: $PSVersionTable
+
+      - name: Execute under pwsh
+        shell: pwsh
+        run: $PSVersionTable
         
-    - name: Execute
-      env: 
-        APP_NAME: ${{ format('cv-app-site-{0}-australiaeast-001', env.DEPLOY_TO_ENV) }}
-      run: |
-        Write-Host "App name = $($env:APP_NAME)"
-        Write-Host "App name = $($env:DEPLOY_TO_ENV)"
